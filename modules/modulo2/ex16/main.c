@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include "asm.h"
 
-long num = 0;
+long num = 2;
 
 int main(void)
 {
-  printf("Valor num:");
-  scanf("%ld", &num);
-
   int n = steps();
 
   printf("steps = %d\n", n);

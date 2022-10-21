@@ -1,0 +1,63 @@
+.section .data
+	.global op1	# int op1;
+	.global op2	# int op2;
+
+
+.section .text
+	.global sum	# int sum(void);
+	.global subt	# int subt(void);
+	.global mult	# int mult(void);
+	.global div	# int div(void);
+	.global mod	# int mod(void);
+	.global power_2	# int power_2(void);
+	.global power_3	# int power_3(void);
+
+sum:
+	movl	op1(%rip), %eax	# copy variable op1 to register
+	addl	op2(%rip), %eax	# add op2 to value in register
+	ret
+
+subt:
+	movl	op1(%rip), %eax	# copy variable op1 to register
+	subl	op2(%rip), %eax	# subtract
+	ret
+
+mult:
+	movl	op1(%rip), %eax	# copy variable op1 to register
+	imull	op2(%rip), %eax	# signed multiplication
+	ret
+
+div:
+	movl	op1(%rip), %eax	# copy variable op1 to register
+	cltd			# sign-extend %eax (32 bits) to %edx:%eax (64 bits)
+	movl	op2(%rip), %ecx	# copy variable op2 to register
+	test	%ecx, %ecx	# %ecx & %ecx (set flags) - if = 0 -> CF = 1
+	je	zero		# CF = 0? jump to zero
+	idivl	%ecx		# signed division
+	ret
+
+mod:
+	movl	op1(%rip), %eax	# copy variable op1 to register
+	cltd			# sign-extend %eax (32 bits) to %edx:%eax (64 bits)
+	movl	op2(%rip), %ecx	# copy variable op2 to register
+	test	%ecx, %ecx	# %ecx & %ecx (set flags) - if = 0 -> CF = 1 
+	je	zero		# CF = 0? jump to zero
+	idivl	%ecx		# signed division
+	movl	%edx, %eax	# copy remainder to return register
+	ret
+
+zero:
+	xor	%eax, %eax
+	ret
+
+power_2:
+	movl	op1(%rip), %eax	# copy variable to register
+	imull	op1(%rip), %eax	# signed multiplication
+	ret
+
+power_3:
+	movl	op1(%rip), %eax	# copy variable to register
+	imull	op1(%rip), %eax	# multiply
+	imull	op1(%rip), %eax	# multiply again
+	ret
+

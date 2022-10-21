@@ -1,18 +1,13 @@
 #include <stdio.h>
 #include "asm.h"
 
-int A = 0, B = 0;
+int A = 2, B = 4, C = 3, D = 5;
 
 int main(void)
 {
-  printf("Valor a:");
-  scanf("%d", &A);
-  printf("Valor b:");
-  scanf("%d", &B);
+  char n = compute();
 
-  char n = isMultiple();
-
-  printf("isMultiple = %d:\n", n);
+  printf("compute = %d:\n", n);
 
   return 0;
 }

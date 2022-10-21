@@ -4,7 +4,7 @@
 INCLUDES = asm.h
 SOURCES = main.c asm.s
 OBJFILES = main.o asm.o
-EXEC = program
+EXEC = prog
 
 # Suffix rules
 .SUFFIXES : .c .o

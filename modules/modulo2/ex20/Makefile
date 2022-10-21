@@ -2,8 +2,8 @@
 
 # Variables
 INCLUDES = asm.h
-SOURCES = main.c asm.s
-OBJFILES = main.o asm.o
+SOURCES = main.c asm.s 
+OBJFILES = main.o asm.o 
 EXEC = prog
 
 # Suffix rules
