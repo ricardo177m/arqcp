@@ -19,9 +19,11 @@ isMultiple:
   cmpl $0, %edx # Compare if the remainder is zero (if it is, a is multiple)
 
   sete %al # sets %al as ZF (seted in the previous comparison)
-  
-  ret
+
+  jmp _end  
 
 _zero:
   movb $0, %al
+
+_end:
   ret

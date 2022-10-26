@@ -22,8 +22,10 @@ compute:
 
   idivl %edi # %eax = (A*B-C) / D
 
-  ret
+  jmp _end
 
 _zero:
   movl $0, %eax
+
+_end:
   ret

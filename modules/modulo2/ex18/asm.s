@@ -32,4 +32,5 @@ sum:
     jne loop # if counter less than i then continue
 
     movl %esi, %eax # when cycle ends move accumulator to return register
-ret
+    
+    ret

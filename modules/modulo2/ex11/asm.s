@@ -14,9 +14,10 @@ test_flags:
 	jo	return_one	# jump if overflow flag is on
 
 	xor	%eax, %eax	# efficient way to set register value to 0
-	ret
+  jmp _end
 
 return_one:
 	mov	$1, %eax	# 32 bit set, the upper 32 bits are zeroed
-	ret
 
+_end:
+  ret

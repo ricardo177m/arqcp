@@ -8,38 +8,30 @@
 	.equ	RAISE_DEFAULT, 150
 
 
-.section .rodata
-	.align 4
-jmp_table:
-	.long	code20	# 0
-	.long	code21	# 1
-	.long	code22	# 2
-
-
 .section .text
 	.global new_salary	# int new_salary(void);
 
 new_salary:
-	movl	currentSalary(%rip), %eax
-	movl	code(%rip), %ecx	# copy variable to register
-	cmp	$22, %ecx		# compare to 22 (set flags)
-	ja	default			# if > jump to default
-	cmp	$20, %ecx		# compare to 20 (set flags)
-	jb	default			# if < jump to default
-	# subl	$20, %ecx		# subtract 20 from code, starting point of jump table is 0
-	jmp	*jmp_table($20,%ecx,4)
+	movw	currentSalary(%rip), %ax
+	movw	code(%rip), %cx		# copy variable to register
+	cmp	$20, %cx		# compare code to 20 (set flags)
+	je	code20			# if = jump to respective tag
+	cmp	$21, %cx
+	je	code21
+	cmp	$22, %cx
+	je	code22
+default:				# not necessary, just indicative
+	addw	$RAISE_DEFAULT, %ax
+  jmp _end
 
-
-default:
-	addl	$RAISE_DEFAULT, %eax
-	ret
 code20:
-	addl	$RAISE_20, %eax
-	ret
+	addw	$RAISE_20, %ax
+  jmp _end
 code21:
-	addl	$RAISE_21, %eax
-	ret
+	addw	$RAISE_21, %ax
+  jmp _end
 code22:
-	addl	$RAISE_22, %eax
-	ret
+	addw	$RAISE_22, %ax
 
+_end:
+  ret

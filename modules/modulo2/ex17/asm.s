@@ -15,17 +15,17 @@
 sum:
 	movl	op1(%rip), %eax	# copy variable op1 to register
 	addl	op2(%rip), %eax	# add op2 to value in register
-	ret
+  jmp _end
 
 subt:
 	movl	op1(%rip), %eax	# copy variable op1 to register
 	subl	op2(%rip), %eax	# subtract
-	ret
+  jmp _end
 
 mult:
 	movl	op1(%rip), %eax	# copy variable op1 to register
 	imull	op2(%rip), %eax	# signed multiplication
-	ret
+  jmp _end
 
 div:
 	movl	op1(%rip), %eax	# copy variable op1 to register
@@ -34,7 +34,7 @@ div:
 	test	%ecx, %ecx	# %ecx & %ecx (set flags) - if = 0 -> CF = 1
 	je	zero		# CF = 0? jump to zero
 	idivl	%ecx		# signed division
-	ret
+  jmp _end
 
 mod:
 	movl	op1(%rip), %eax	# copy variable op1 to register
@@ -44,20 +44,21 @@ mod:
 	je	zero		# CF = 0? jump to zero
 	idivl	%ecx		# signed division
 	movl	%edx, %eax	# copy remainder to return register
-	ret
+  jmp _end
 
 zero:
 	xor	%eax, %eax
-	ret
+  jmp _end
 
 power_2:
 	movl	op1(%rip), %eax	# copy variable to register
 	imull	op1(%rip), %eax	# signed multiplication
-	ret
+  jmp _end
 
 power_3:
 	movl	op1(%rip), %eax	# copy variable to register
 	imull	op1(%rip), %eax	# multiply
 	imull	op1(%rip), %eax	# multiply again
-	ret
 
+_end:
+  ret

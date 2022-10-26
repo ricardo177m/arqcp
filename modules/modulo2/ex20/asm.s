@@ -37,4 +37,4 @@ check_num:
 
   addl $BASE, %eax # Sum with the base (0100)
   addl %edx, %eax # Sum the remainder of division by 2
-ret
+  ret
