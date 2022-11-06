@@ -8,26 +8,26 @@ str_copy_porto:
   movq ptr1(%rip), %rax 
   movq ptr2(%rip), %rsi
 
-  _loop:
+  .loop:
     movb (%rax), %dl
 
     cmpb $0, %dl # check for string end
-    je _end
+    je .end
 
     cmpb $'o', %dl # if is a 'o' replace by 'u'
-    je _replace
+    je .replace
     
     _continue:
       movb %dl, (%rsi) # move char to ptr2
 
       incq %rax # next character ptr1
       incq %rsi # next character ptr2
-      jmp _loop
+      jmp .loop
 
-_replace:
+.replace:
   movb $'u', %dl
   jmp _continue
 
-_end:
+.end:
   movb $0, (%rsi)
   ret

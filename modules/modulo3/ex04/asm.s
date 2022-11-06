@@ -6,17 +6,20 @@
 
 vec_add_two:
   movq ptrvec(%rip), %rax # pointer to array
-  movl num(%rip), %ecx # number of elements of array
+  movl num(%rip), %r8d # number of elements of array
+  movq $0, %rdi
 
-  testl %ecx, %ecx # test if num is 0
-  je _end
+  .loop:
+    cmpl %edi, %r8d # check if loop has ended
+    je .end
 
-  _loop:
-    leaq -4(%rax, %rcx, 4), %rdx # as %ecx starts in num
+    leaq (%rax, %rdi, 4), %rdx # as %ecx starts in num
 
     addl $2, (%rdx) # move char to ptr2
 
-    loop _loop # while num is greater than 0
+    incl %edi # increment index
 
-_end:
+    jmp .loop # while num is greater than 0
+
+.end:
   ret

@@ -2,7 +2,8 @@
 #include "asm.h"
 
 int num = 4;
-int ptrvec[] = { 1,2,3,4 };
+int vec[] = {1, 2, 3, 4};
+int *ptrvec = &vec[0];
 
 int main(void)
 {
